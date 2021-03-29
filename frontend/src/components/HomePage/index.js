@@ -24,6 +24,11 @@ function HomePage() {
         </div>
     )
 
+    return (
+        <>
+        </>
+    )
+
 
 }
 export default HomePage;
