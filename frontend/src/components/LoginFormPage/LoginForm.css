@@ -6,7 +6,7 @@
     border-radius: 5%;
     padding: 20px;
     width: 30vw;
-    height: 30vh;
+    height: auto;
 }
 
 input{
@@ -44,6 +44,20 @@ input::placeholder{
 .submit-login{
     display: flex;
     justify-content: center;
+}
+
+.errors{
+    color: red;
+    text-decoration: none;
+    justify-content: center;
+
+}
+
+.log-in-title{
+    color: white;
+    text-align: center;
+    font-size: 3em;
+    font-family: 'Proxima Nova', 'helvetica neue',Arial, Helvetica, sans-serif;
 }
 
 .login-form-button{
