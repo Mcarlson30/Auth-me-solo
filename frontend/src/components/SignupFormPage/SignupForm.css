@@ -1,0 +1,78 @@
+.signup-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgba(21,21,23,.80);
+    border-radius: 5%;
+    padding: 20px;
+    width: 30vw;
+    height: auto;
+}
+
+input{
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    width: 100%;
+    position: relative;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 5px;
+    height: 45px;
+    z-index: 10;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+input:focus{
+    outline: none;
+}
+
+input::placeholder{
+  font-family: 'Proxima Nova', 'helvetica neue',Arial, Helvetica, sans-serif;
+  color: black 0.70;
+  font-size: 18px;
+  text-align: center;
+  left: 0;
+  position: absolute;
+  top: 8px;
+  z-index: 5;
+}
+
+.errors{
+    color: red;
+    text-decoration: none;
+    justify-content: center;
+
+}
+
+.sign-up-title{
+    color: white;
+    text-align: center;
+    font-size: 3em;
+    font-family: 'Proxima Nova', 'helvetica neue',Arial, Helvetica, sans-serif;
+}
+
+.signup-form-button{
+    font-family: 'Proxima Nova', 'helvetica neue',Arial, Helvetica, sans-serif;
+  height: 36px;
+  border: none;
+  color: black;
+  box-sizing: border-box;
+  font-weight: 400;
+  position: relative;
+  font-size: 16px;
+  border-radius: 33px;
+  align-items: center;
+  background-color: white;
+  width: 60%;
+  outline-style: none;
+  margin-top: 35px;
+}
+
+.submit-signup{
+    display: flex;
+    justify-content: center;
+}
