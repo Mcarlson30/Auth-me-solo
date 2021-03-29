@@ -7,15 +7,11 @@ body{
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.center-div{
-    margin: auto;
-    width: 50%;
-    border: 3px solid green;
-    padding: 10px;
-    z-index: 1;
-}
 
 #root{
     height: auto;

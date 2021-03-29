@@ -52,6 +52,10 @@
     font-family: 'Proxima Nova', 'helvetica neue',Arial, Helvetica, sans-serif;
 }
 
+.signup-text:hover{
+    color: gray;
+}
+
 .nav-logo-container{
     height: 50px;
     display: flex;

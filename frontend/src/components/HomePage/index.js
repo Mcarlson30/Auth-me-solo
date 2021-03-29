@@ -1,20 +1,25 @@
 // frontend/src/components/LoginFormPage/index.js
-import React, { useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import './HomePage.css';
 
 function HomePage() {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user)
+    console.log(sessionUser)
+    const history = useHistory()
+
+    const signUp = () => {
+        history.push('/signup')
+    }
 
     if (!sessionUser) return (
-        <div>
+        <div className='home-page-text'>
             <div className='title'>Find your inspiration</div>
-            <div className='quote'>Join the Shimmer community, home to many
-            incredible photos and groups</div>
+            <div className='quote'>Join the Shimmer community today</div>
             <div className='start-signup'>
-                <button className='sign-up' onclick={<Redirect to='/signup' />} ></button>
+                <button className='sign-up' onClick={signUp}>Start for free</button>
             </div>
         </div>
     )
