@@ -5,6 +5,12 @@ const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3")
 const { Photo } = require("../../db/models")
 const router = express.Router();
 
+router.get("/", asyncHandler(async function (req, res, next) {
+    // const userId = +req.params.userId
+    const photos = await Photo.findAll();
+    res.json(photos)
+}))
+
 
 router.post("/photo", singleMulterUpload("image"), asyncHandler(async (req, res) => {
 
@@ -25,6 +31,20 @@ router.get("/:userId", asyncHandler(async function (req, res) {
 
     res.json(photos)
 }))
+
+router.delete("/delete/:userId/:photoId", asyncHandler(async (req, res) => {
+    const photoId = parseInt(req.params.photoId, 10);
+    const userId = parseInt(req.params.userId, 10);
+    const photo = await Photo.findByPk(photoId);
+    await photo.destroy();
+
+    const photos = await Photo.findAll({
+        where: {
+            userId
+        }
+    })
+    res.json({ photos })
+}));
 
 
 

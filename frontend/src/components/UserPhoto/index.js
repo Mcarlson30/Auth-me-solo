@@ -1,31 +1,36 @@
 // frontend/src/components/LoginFormPage/index.js
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllPhotos } from "../../store/photo";
+import { getUserPhotos, deleteUserPhoto } from "../../store/photo";
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import './HomePage.css';
+import './UserPhoto.css';
 
-function HomePage() {
+function UserPhotos() {
     const dispatch = useDispatch();
     const history = useHistory();
     const { photoId } = useParams();
 
     const sessionUser = useSelector(state => state.session.user)
+    const photos = useSelector(state => state.photo)
     // console.log(photos)
-    // console.log(sessionUser)
-    // const photos = useSelector(state => state.photos)
-    // const [photos, setPhotos] = useState('')
+    console.log(sessionUser.id)
+
+    const photoArray = Object.values(photos)
+
+    const deletePhoto = (e) => {
+        // e.preventDefault();
+        // console.log("photo Id", e.target.id);
+        dispatch(deleteUserPhoto(sessionUser.id, e.target.id))
+    };
+
 
     useEffect(() => {
-        dispatch(getAllPhotos())
-    }, [])
+        dispatch(getUserPhotos(sessionUser.id))
+    }, [sessionUser, dispatch, photoArray.length])
 
-    // const photos = useSelector(state => {
-    //     return state.photo.map(photoId => state.photo[photoId])
-    // })
-    const photos = useSelector(state => state.photo)
-    console.log(sessionUser)
-    console.log('photos', photos)
+
+    // console.log(sessionUser)
+    // console.log('photos', photos)
 
 
     const signUp = () => {
@@ -47,11 +52,18 @@ function HomePage() {
         <>
             <div className='photos-container'>
                 <div className='select-photos'>
+                    <div className='add-photo-container'>
+                        <button>Add</button>
+                    </div>
                     {photos.map(photo => (
                         < div className='photo-div' >
+                            { console.log("photo", photo)}
                             <div className='photo-image' style={{ backgroundImage: `url('${photo.photoUrl}')` }}></div>
                             <div className='photo-info'>
                                 <div className='photo-user-name'>{photo.name} by {sessionUser.username}</div>
+                                <div className='delete-button'>
+                                    <button className='delete' onClick={deletePhoto} id={photo.id}>Delete</button>
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -62,4 +74,4 @@ function HomePage() {
 
 
 }
-export default HomePage;
+export default UserPhotos;

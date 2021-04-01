@@ -60,8 +60,6 @@
     padding: 15px;
     height: auto;
     max-width: 654px;
-    float: left;
-    
 }
 
 .photo-image{
@@ -74,10 +72,17 @@
 
 .select-photos{
     max-width: 90vw;
-    display: flex;
+    display: inline-block;
     justify-content: center;
-    align-items: center;
-    
-    
-    
+    align-items: center; 
+}
+
+.photo-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-button{
+    padding: 5px;
+    background-color: lightgray;
 }
