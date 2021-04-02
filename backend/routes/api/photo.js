@@ -1,13 +1,19 @@
 const express = require('express')
 const asyncHandler = require("express-async-handler");
+const { Photo, User, Comment } = require('../../db/models');
+// const { default: UserPhotos } = require('../../../frontend/src/components/UserPhoto');
 
 const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3")
-const { Photo } = require("../../db/models")
+// const { Photo } = require("../../db/models")
 const router = express.Router();
 
 router.get("/", asyncHandler(async function (req, res, next) {
     // const userId = +req.params.userId
-    const photos = await Photo.findAll();
+    const photos = await Photo.findAll({
+        include: {
+            model: User
+        }
+    });
     res.json(photos)
 }))
 

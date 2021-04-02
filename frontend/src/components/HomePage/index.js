@@ -11,6 +11,7 @@ function HomePage() {
     const { photoId } = useParams();
 
     const sessionUser = useSelector(state => state.session.user)
+    const photos = useSelector(state => state.photo)
     // console.log(photos)
     // console.log(sessionUser)
     // const photos = useSelector(state => state.photos)
@@ -20,16 +21,24 @@ function HomePage() {
         dispatch(getAllPhotos())
     }, [dispatch])
 
-    // const photos = useSelector(state => {
-    //     return state.photo.map(photoId => state.photo[photoId])
-    // })
-    const photos = useSelector(state => state.photo)
     console.log(sessionUser)
     console.log('photos', photos)
 
 
     const signUp = () => {
         history.push('/signup')
+    }
+
+    function userPhotos(photo) {
+        return function () {
+            history.push(`/${photo.User.id}`)
+        };
+    }
+
+    function userPhoto(photo) {
+        return function () {
+            history.push(`/${photo.User.username}/${photo.id}`)
+        };
     }
 
     if (!sessionUser) return (
@@ -43,15 +52,19 @@ function HomePage() {
         </div>
     )
 
-    return (
+    if (photos) return (
         <>
             <div className='photos-container'>
                 <div className='select-photos'>
                     {photos.map(photo => (
                         < div className='photo-div' >
-                            <div className='photo-image' style={{ backgroundImage: `url('${photo.photoUrl}')` }}></div>
+                            <div
+                                className='photo-image'
+                                style={{ backgroundImage: `url('${photo.photoUrl}')` }}
+                                onClick={userPhoto(photo)}
+                            ></div>
                             <div className='photo-info'>
-                                <div className='photo-user-name'>{photo.name} by {sessionUser.username}</div>
+                                <div className='photo-user-name' onClick={userPhotos(photo)}>{photo.name} by {photo.User.username}</div>
                             </div>
                         </div>
                     ))}

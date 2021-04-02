@@ -16,7 +16,6 @@ input{
     width: 100%;
     position: relative;
     font-size: 18px;
-    text-align: center;
     font-weight: 600;
     border-radius: 5px;
     height: 45px;
@@ -35,8 +34,6 @@ input::placeholder{
   color: black 0.70;
   font-size: 18px;
   text-align: center;
-  left: 0;
-  position: absolute;
   top: 8px;
   z-index: 5;
 }

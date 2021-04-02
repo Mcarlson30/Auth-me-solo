@@ -33,6 +33,9 @@ function App() {
           <Route path='/:userId'>
             <UserPhotos />
           </Route>
+          <Route path='/:userId/:photoId'>
+            <UserPhotos />
+          </Route>
         </Switch>
       )}
     </>

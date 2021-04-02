@@ -11,12 +11,12 @@ function UserPhotos() {
     const [image, setImage] = useState(null);
     const [name, setName] = useState('');
 
+    var url = window.location.pathname;
+    var id = url[1];
+    console.log('user------', id)
+
     const sessionUser = useSelector(state => state.session.user)
     const photos = useSelector(state => state.photo)
-    // let userId;
-    // if (sessionUser) (
-    //     userId = sessionUser.id
-    // )
 
 
     const photoArray = Object.values(photos)
@@ -27,11 +27,11 @@ function UserPhotos() {
 
 
     useEffect(() => {
-        dispatch(getUserPhotos(sessionUser.id))
-    }, [sessionUser, dispatch, photoArray.length])
+        dispatch(getUserPhotos(id))
+    }, [id, dispatch, photoArray.length])
 
     const handleSubmit = (e) => {
-        const userId = sessionUser.id
+        const userId = id
         console.log('file-------', image)
         e.preventDefault();
         dispatch(createPhoto(userId, image, name))
