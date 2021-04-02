@@ -12,11 +12,13 @@ router.get("/", asyncHandler(async function (req, res, next) {
 }))
 
 
-router.post("/photo", singleMulterUpload("image"), asyncHandler(async (req, res) => {
+router.post("/", singleMulterUpload("image"), asyncHandler(async (req, res) => {
 
-    const { userId } = req.body
-    const photoURL = await singlePublicFileUpload(req.file)
-    const newPhoto = await Photo.create({ userId: +userId, photoURL: photoURL })
+    const { userId, name } = req.body
+    console.log('req.file ------', req.file)
+    const photoUrl = await singlePublicFileUpload(req.file)
+    console.log('photoUrl------', photoUrl)
+    const newPhoto = await Photo.create({ userId, photoUrl, name })
 
     if (newPhoto) {
         res.json(newPhoto)

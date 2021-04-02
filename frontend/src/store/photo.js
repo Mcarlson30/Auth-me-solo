@@ -19,11 +19,13 @@ const getPhotos = (photos) => ({
     payload: photos
 });
 
-export const createPhoto = (userId, image) => async (dispatch) => {
+export const createPhoto = (userId, image, name) => async (dispatch) => {
+    console.log('image', image)
     const formData = new FormData()
     formData.append("userId", userId)
     formData.append("image", image)
-    // console.log(image, "!!!")
+    formData.append("name", name)
+
     const res = await csrfFetch("/api/photo", {
         method: "POST",
         headers: { "Content-Type": "multipart/form-data" },
@@ -63,10 +65,6 @@ export default function photoReducer(state = [], action) {
         case UPLOAD_PHOTO:
             return [...state, action.payload]
         case GET_PHOTOS: {
-            const allPhotos = {};
-            action.payload.forEach(photo => {
-                allPhotos[photo.id] = photo;
-            })
             return [...action.payload]
         }
         case DELETE_PHOTO: {

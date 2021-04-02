@@ -1,25 +1,23 @@
 // frontend/src/components/LoginFormPage/index.js
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserPhotos, deleteUserPhoto } from "../../store/photo";
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { getUserPhotos, deleteUserPhoto, createPhoto } from "../../store/photo";
+import { useHistory } from 'react-router-dom';
 import './UserPhoto.css';
 
 function UserPhotos() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { photoId } = useParams();
+    const [image, setImage] = useState(null);
+    const [name, setName] = useState('');
 
     const sessionUser = useSelector(state => state.session.user)
     const photos = useSelector(state => state.photo)
-    // console.log(photos)
-    console.log(sessionUser.id)
+    const userId = sessionUser.id
 
     const photoArray = Object.values(photos)
 
     const deletePhoto = (e) => {
-        // e.preventDefault();
-        // console.log("photo Id", e.target.id);
         dispatch(deleteUserPhoto(sessionUser.id, e.target.id))
     };
 
@@ -28,10 +26,20 @@ function UserPhotos() {
         dispatch(getUserPhotos(sessionUser.id))
     }, [sessionUser, dispatch, photoArray.length])
 
+    const handleSubmit = (e) => {
+        console.log('file-------', image)
+        e.preventDefault();
+        dispatch(createPhoto(userId, image, name))
 
+    };
+
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
     // console.log(sessionUser)
     // console.log('photos', photos)
-
 
     const signUp = () => {
         history.push('/signup')
@@ -52,12 +60,21 @@ function UserPhotos() {
         <>
             <div className='photos-container'>
                 <div className='select-photos'>
-                    <div className='add-photo-container'>
-                        <button>Add</button>
-                    </div>
+                    <button>Add</button>
+                    <form onSubmit={handleSubmit}>
+                        <div className='add-photo-container'>
+                            <input
+                                type='text'
+                                placeholder='Name'
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                            <input type="file" onChange={updateFile} />
+                            <button type="submit">Add Photo</button>
+                        </div>
+                    </form>
                     {photos.map(photo => (
                         < div className='photo-div' >
-                            { console.log("photo", photo)}
                             <div className='photo-image' style={{ backgroundImage: `url('${photo.photoUrl}')` }}></div>
                             <div className='photo-info'>
                                 <div className='photo-user-name'>{photo.name} by {sessionUser.username}</div>
