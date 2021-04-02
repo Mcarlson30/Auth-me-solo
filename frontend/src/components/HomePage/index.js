@@ -18,7 +18,7 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(getAllPhotos())
-    }, [])
+    }, [dispatch])
 
     // const photos = useSelector(state => {
     //     return state.photo.map(photoId => state.photo[photoId])

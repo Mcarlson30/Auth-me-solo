@@ -13,7 +13,11 @@ function UserPhotos() {
 
     const sessionUser = useSelector(state => state.session.user)
     const photos = useSelector(state => state.photo)
-    const userId = sessionUser.id
+    // let userId;
+    // if (sessionUser) (
+    //     userId = sessionUser.id
+    // )
+
 
     const photoArray = Object.values(photos)
 
@@ -27,6 +31,7 @@ function UserPhotos() {
     }, [sessionUser, dispatch, photoArray.length])
 
     const handleSubmit = (e) => {
+        const userId = sessionUser.id
         console.log('file-------', image)
         e.preventDefault();
         dispatch(createPhoto(userId, image, name))

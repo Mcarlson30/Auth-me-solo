@@ -24,14 +24,14 @@ function App() {
           <Route exact path='/'>
             <HomePage />
           </Route>
-          <Route path='/:userId'>
-            <UserPhotos />
-          </Route>
           <Route path="/login">
             <LoginFormPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path='/:userId'>
+            <UserPhotos />
           </Route>
         </Switch>
       )}
