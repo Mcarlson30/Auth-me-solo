@@ -10,15 +10,15 @@ function UserPhotos() {
     const history = useHistory();
     const [image, setImage] = useState(null);
     const [name, setName] = useState('');
+    // const [photos, setPhotos] = useState([])
 
-    var url = window.location.pathname;
-    var id = url[1];
-    console.log('user------', id)
+    let url = window.location.pathname;
+    let id = url[1];
 
-    const sessionUser = useSelector(state => state.session.user)
+
+
     const photos = useSelector(state => state.photo)
-
-
+    const sessionUser = useSelector(state => state.session.user)
     const photoArray = Object.values(photos)
 
     const deletePhoto = (e) => {
@@ -32,7 +32,6 @@ function UserPhotos() {
 
     const handleSubmit = (e) => {
         const userId = id
-        console.log('file-------', image)
         e.preventDefault();
         dispatch(createPhoto(userId, image, name))
 
@@ -43,8 +42,6 @@ function UserPhotos() {
         const file = e.target.files[0];
         if (file) setImage(file);
     };
-    // console.log(sessionUser)
-    // console.log('photos', photos)
 
     const signUp = () => {
         history.push('/signup')
@@ -61,31 +58,38 @@ function UserPhotos() {
         </div>
     )
 
+    let currentUser = sessionUser.id == id
     return (
         <>
             <div className='photos-container'>
                 <div className='select-photos'>
-                    <button>Add</button>
-                    <form onSubmit={handleSubmit}>
-                        <div className='add-photo-container'>
-                            <input
-                                type='text'
-                                placeholder='Name'
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                            <input type="file" onChange={updateFile} />
-                            <button type="submit">Add Photo</button>
+                    {currentUser &&
+                        < div className='form-div'>
+                            <button>Add</button>
+                            <form onSubmit={handleSubmit}>
+                                <div className='add-photo-container'>
+                                    <input
+                                        type='text'
+                                        placeholder='Name'
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
+                                    <input type="file" onChange={updateFile} />
+                                    <button type="submit">Add Photo</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    }
                     {photos.map(photo => (
                         < div className='photo-div' >
                             <div className='photo-image' style={{ backgroundImage: `url('${photo.photoUrl}')` }}></div>
                             <div className='photo-info'>
                                 <div className='photo-user-name'>{photo.name} by {sessionUser.username}</div>
-                                <div className='delete-button'>
-                                    <button className='delete' onClick={deletePhoto} id={photo.id}>Delete</button>
-                                </div>
+                                {currentUser &&
+                                    <div className='delete-button'>
+                                        <button className='delete' onClick={deletePhoto} id={photo.id}>Delete</button>
+                                    </div>
+                                }
                             </div>
                         </div>
                     ))}

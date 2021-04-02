@@ -8,6 +8,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from './components/HomePage';
 import UserPhotos from './components/UserPhoto';
+import SinglePhoto from './components/SinglePhoto'
 
 function App() {
   const dispatch = useDispatch();
@@ -33,8 +34,8 @@ function App() {
           <Route path='/:userId'>
             <UserPhotos />
           </Route>
-          <Route path='/:userId/:photoId'>
-            <UserPhotos />
+          <Route path='/photo/:photoId'>
+            <SinglePhoto />
           </Route>
         </Switch>
       )}
