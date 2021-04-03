@@ -45,20 +45,23 @@ export const deleteUserPhoto = (userId, photoId) => async (dispatch) => {
     dispatch(deletePhoto(data.photos))
 }
 
+export const getSinglePhoto = (photoId) => async (dispatch) => {
+    console.log('single photo thunk')
+    const res = await csrfFetch(`/api/photo/photo/${photoId}`)
+    const data = await res.json();
+    dispatch(getPhotos(data))
+}
 
 export const getUserPhotos = (userId) => async (dispatch) => {
+    console.log('inside user photos thunk')
     const res = await csrfFetch(`/api/photo/${userId}`)
     const data = await res.json();
     dispatch(getPhotos(data))
 }
 
-export const getSinglePhoto = (userId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/photo/${userId}`)
-    const data = await res.json();
-    dispatch(getPhotos(data))
-}
 
 export const getAllPhotos = () => async (dispatch) => {
+    console.log('all photos thunk')
     const res = await csrfFetch(`/api/photo`)
     const data = await res.json();
     // console.log('all photo thunk')

@@ -1,7 +1,7 @@
 // frontend/src/components/LoginFormPage/index.js
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserPhotos } from "../../store/photo";
+import { getSinglePhoto } from "../../store/photo";
 import { useHistory } from 'react-router-dom';
 import './SinglePhoto.css';
 
@@ -12,13 +12,18 @@ function SinglePhoto() {
     const sessionUser = useSelector(state => state.session.user)
     const photos = useSelector(state => state.photo)
 
-    var url = window.location.pathname;
+    let url = window.location.pathname;
     console.log(url)
+    let id = url.substring(url.lastIndexOf('/') + 1);
+    console.log(id)
 
+    useEffect(() => {
+        dispatch(getSinglePhoto(id))
+    }, [id, dispatch])
 
     return (
         <>
-            <div className='photos-container'>
+            {/* <div className='photos-container'>
                 <div className='select-photos'>
                     {photos.map(photo => (
                         < div className='photo-div' >
@@ -32,7 +37,7 @@ function SinglePhoto() {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div> */}
         </>
     )
 

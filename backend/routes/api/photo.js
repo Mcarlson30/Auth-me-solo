@@ -17,6 +17,17 @@ router.get("/", asyncHandler(async function (req, res, next) {
     res.json(photos)
 }))
 
+router.get("/photo/:photoId", asyncHandler(async function (req, res, next) {
+    // const userId = +req.params.userId
+    const photos = await Photo.findByPk({
+        include: {
+            model: Comment
+        },
+        where: { photoId }
+    });
+    res.json(photos)
+}))
+
 
 router.post("/", singleMulterUpload("image"), asyncHandler(async (req, res) => {
 

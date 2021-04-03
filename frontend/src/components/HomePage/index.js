@@ -16,11 +16,11 @@ function HomePage() {
     // console.log(sessionUser)
     // const photos = useSelector(state => state.photos)
     // const [photos, setPhotos] = useState('')
-    const photoArray = Object.values(photos)
+    // const photoArray = Object.values(photos)
 
     useEffect(() => {
         dispatch(getAllPhotos())
-    }, [dispatch, photoArray.length])
+    }, [dispatch])
 
     console.log(sessionUser)
     console.log('photos', photos)
@@ -36,7 +36,7 @@ function HomePage() {
         };
     }
 
-    function userPhoto(photo) {
+    function singlePhoto(photo) {
         return function () {
             history.push(`/photo/${photo.id}`)
         };
@@ -62,7 +62,7 @@ function HomePage() {
                             <div
                                 className='photo-image'
                                 style={{ backgroundImage: `url('${photo.photoUrl}')` }}
-                                onClick={userPhoto(photo)}
+                                onClick={singlePhoto(photo)}
                             ></div>
                             <div className='photo-info'>
                                 <div className='photo-user-name' onClick={userPhotos(photo)}>{photo.name} by {photo.User.username}</div>
