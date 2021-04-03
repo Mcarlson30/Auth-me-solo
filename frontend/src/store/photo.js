@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const UPLOAD_PHOTO = 'UPLOAD_PHOTO'
 const GET_PHOTOS = 'GET_PHOTOS'
 const DELETE_PHOTO = 'DELETE_PHOTO'
+const GET_SINGLE_PHOTO = 'GET_SINGLE_PHOTO'
 
 const setPhoto = (photo) => ({
     type: UPLOAD_PHOTO,
@@ -17,6 +18,11 @@ const deletePhoto = (photo) => ({
 const getPhotos = (photos) => ({
     type: GET_PHOTOS,
     payload: photos
+});
+
+const getPhoto = (photo) => ({
+    type: GET_SINGLE_PHOTO,
+    payload: photo
 });
 
 export const createPhoto = (userId, image, name) => async (dispatch) => {
@@ -49,7 +55,8 @@ export const getSinglePhoto = (photoId) => async (dispatch) => {
     console.log('single photo thunk')
     const res = await csrfFetch(`/api/photo/photo/${photoId}`)
     const data = await res.json();
-    dispatch(getPhotos(data))
+    console.log('data', data)
+    dispatch(getPhoto(data))
 }
 
 export const getUserPhotos = (userId) => async (dispatch) => {
@@ -64,7 +71,6 @@ export const getAllPhotos = () => async (dispatch) => {
     console.log('all photos thunk')
     const res = await csrfFetch(`/api/photo`)
     const data = await res.json();
-    // console.log('all photo thunk')
     dispatch(getPhotos(data))
 }
 
@@ -79,6 +85,9 @@ export default function photoReducer(state = [], action) {
         case DELETE_PHOTO: {
             newState = [...action.payload];
             return newState;
+        }
+        case GET_SINGLE_PHOTO: {
+            return [action.payload]
         }
         default:
             return state

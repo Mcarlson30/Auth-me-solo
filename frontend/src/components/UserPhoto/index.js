@@ -28,7 +28,7 @@ function UserPhotos() {
 
     useEffect(() => {
         dispatch(getUserPhotos(id))
-    }, [dispatch])
+    }, [id, dispatch])
 
     const handleSubmit = (e) => {
         const userId = id

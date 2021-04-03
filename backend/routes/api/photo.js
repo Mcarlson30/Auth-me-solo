@@ -1,14 +1,12 @@
 const express = require('express')
 const asyncHandler = require("express-async-handler");
 const { Photo, User, Comment } = require('../../db/models');
-// const { default: UserPhotos } = require('../../../frontend/src/components/UserPhoto');
+
 
 const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3")
-// const { Photo } = require("../../db/models")
 const router = express.Router();
 
 router.get("/", asyncHandler(async function (req, res, next) {
-    // const userId = +req.params.userId
     const photos = await Photo.findAll({
         include: {
             model: User
@@ -17,14 +15,19 @@ router.get("/", asyncHandler(async function (req, res, next) {
     res.json(photos)
 }))
 
-router.get("/photo/:photoId", asyncHandler(async function (req, res, next) {
-    // const userId = +req.params.userId
-    const photos = await Photo.findByPk({
-        include: {
-            model: Comment
+router.get("/photo/:photoId", asyncHandler(async function (req, res) {
+    const photoId = (req.params.photoId)
+    const photos = await Photo.findOne({
+        include: [{
+            model: User
         },
-        where: { photoId }
+        {
+            model: Comment
+        }
+        ],
+        where: { id: photoId }
     });
+    console.log('photoId-------------', photos)
     res.json(photos)
 }))
 
@@ -32,9 +35,7 @@ router.get("/photo/:photoId", asyncHandler(async function (req, res, next) {
 router.post("/", singleMulterUpload("image"), asyncHandler(async (req, res) => {
 
     const { userId, name } = req.body
-    console.log('req.file ------', req.file)
     const photoUrl = await singlePublicFileUpload(req.file)
-    console.log('photoUrl------', photoUrl)
     const newPhoto = await Photo.create({ userId, photoUrl, name })
 
     if (newPhoto) {

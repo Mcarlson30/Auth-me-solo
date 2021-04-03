@@ -11,9 +11,7 @@ function SinglePhoto() {
 
     const sessionUser = useSelector(state => state.session.user)
     const photos = useSelector(state => state.photo)
-
     let url = window.location.pathname;
-    console.log(url)
     let id = url.substring(url.lastIndexOf('/') + 1);
     console.log(id)
 
@@ -21,6 +19,7 @@ function SinglePhoto() {
         dispatch(getSinglePhoto(id))
     }, [id, dispatch])
 
+    console.log(photos)
     return (
         <>
             {/* <div className='photos-container'>
