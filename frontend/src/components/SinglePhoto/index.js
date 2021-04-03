@@ -11,6 +11,7 @@ function SinglePhoto() {
 
     const sessionUser = useSelector(state => state.session.user)
     const photos = useSelector(state => state.photo)
+
     let url = window.location.pathname;
     let id = url.substring(url.lastIndexOf('/') + 1);
     console.log(id)
@@ -19,7 +20,7 @@ function SinglePhoto() {
         dispatch(getSinglePhoto(id))
     }, [id, dispatch])
 
-    console.log(photos)
+    console.log('photo', photos[0].Comments)
     return (
         <>
             {/* <div className='photos-container'>
@@ -37,6 +38,18 @@ function SinglePhoto() {
                     ))}
                 </div>
             </div> */}
+            <div className='single-photo-div'>
+                <div className='image-container'>
+                    <img src={`${photos[0].photoUrl}`} alt='text'></img>
+                </div>
+                <div className='single-photo-info'>{photos[0].name} by {photos[0].User.username}</div>
+                <div className='comment-container'>
+                    {photos[0].Comments && photos[0].Comments.map(comment => (
+                        <div className='comment-body'>{comment.text}</div>
+
+                    ))}
+                </div>
+            </div>
         </>
     )
 
