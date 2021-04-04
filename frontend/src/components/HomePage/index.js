@@ -1,8 +1,8 @@
 // frontend/src/components/LoginFormPage/index.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPhotos } from "../../store/photo";
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import './HomePage.css';
 
 function HomePage() {
