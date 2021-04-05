@@ -44,7 +44,8 @@ export const createPhoto = (userId, image, name) => async (dispatch) => {
         body: formData
     })
     const data = await res.json();
-    dispatch(setPhoto(data))
+    console.log('data----', data.photos)
+    dispatch(setPhoto(data.photos))
 };
 
 export const createComment = (userId, photoId, text) => async (dispatch) => {
@@ -89,7 +90,7 @@ export default function photoReducer(state = [], action) {
     let newState;
     switch (action.type) {
         case UPLOAD_PHOTO:
-            return [...state, action.payload]
+            return [...action.payload]
         case GET_PHOTOS: {
             return [...action.payload]
         }

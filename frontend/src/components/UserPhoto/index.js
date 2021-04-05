@@ -104,7 +104,8 @@ function UserPhotos() {
                             <div className='photo-image' style={{ backgroundImage: `url('${photo.photoUrl}')` }}
                                 onClick={singlePhoto(photo)}></div>
                             <div className='photo-info'>
-                                <div className='photo-user-name'>{photo.name} by {photo.User.username}</div>
+                                <div className='photo-user-name'>{photo.name} by
+                                {photo.User.username}</div>
                                 {currentUser &&
                                     <div className='delete-button'>
                                         <button className='delete' onClick={deletePhoto} id={photo.id}>Remove</button>
