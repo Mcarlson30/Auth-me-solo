@@ -36,13 +36,19 @@ router.post("/", singleMulterUpload("image"), asyncHandler(async (req, res) => {
 
     const { userId, name } = req.body
     const photoUrl = await singlePublicFileUpload(req.file)
-    const newPhoto = await Photo.create({ userId, photoUrl, name })
+    await Photo.create({ userId, photoUrl, name })
 
-    if (newPhoto) {
-        res.json(newPhoto)
-    } else {
-        res.json({ success: false, message: "Something went wrong..." })
-    }
+    const photos = await Photo.findAll({
+        include: [{
+            model: User
+        },
+        {
+            model: Comment
+        }
+        ],
+        where: { userId }
+    })
+    res.json({ photos })
 }))
 
 router.get("/:userId", asyncHandler(async function (req, res) {
@@ -68,9 +74,14 @@ router.delete("/delete/:userId/:photoId", asyncHandler(async (req, res) => {
     await photo.destroy();
 
     const photos = await Photo.findAll({
-        where: {
-            userId
+        include: [{
+            model: User
+        },
+        {
+            model: Comment
         }
+        ],
+        where: { userId }
     })
     res.json({ photos })
 }));
