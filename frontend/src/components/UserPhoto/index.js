@@ -59,6 +59,12 @@ function UserPhotos() {
         // setAddVisibility('visible')
     }
 
+    function singlePhoto(photo) {
+        return function () {
+            history.push(`/photo/${photo.id}`)
+        };
+    }
+
     if (!sessionUser) return (
         <div className='home-page-text'>
             <div className='title'>Find your inspiration</div>
@@ -96,7 +102,8 @@ function UserPhotos() {
                     }
                     {photos.map(photo => (
                         < div className='photo-div' >
-                            <div className='photo-image' style={{ backgroundImage: `url('${photo.photoUrl}')` }}></div>
+                            <div className='photo-image' style={{ backgroundImage: `url('${photo.photoUrl}')` }}
+                                onClick={singlePhoto(photo)}></div>
                             <div className='photo-info'>
                                 <div className='photo-user-name'>{photo.name} by {photo.User.username}</div>
                                 {currentUser &&

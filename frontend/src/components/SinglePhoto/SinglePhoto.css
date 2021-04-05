@@ -33,3 +33,70 @@ input.input-name{
     align-items: center;
 }
 
+.single-photo-div{
+    background-color: #f3f5f6;
+    height: 100vh;
+    width: 100vw;
+    margin-top: 105px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.image-container{
+    padding: 20px;
+    height: 80vh;
+    width: 100vw;
+    background-color: rgb(33,33,36);
+    display: flex;
+    justify-content: center;
+}
+
+.single-photo-info{
+    height: 5vh;
+    font-size: larger;
+    font-weight: bold;
+    padding-left: 20%;
+}
+
+.comments-tite{
+    height: 5vh;
+    font-size: larger;
+    font-weight: bold;
+    padding-left: 20%;
+    padding-right: 20%;
+    text-decoration: underline;
+    margin-top: 15px;
+}
+
+.comment-container{
+    padding-top: 10px;
+    padding-left: 20%;
+}
+
+.comment-body{
+    width: 100%;
+    height: 5vh;
+    border: 1px solid black;
+    
+    border-radius: 25px;
+    background-color: white;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.poster-info{
+    width: 30%;
+    margin-bottom: 10px;
+    
+    
+}
+
+.poster{
+padding-left: 10px;
+text-align: right;
+}
+

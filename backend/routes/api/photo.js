@@ -48,9 +48,13 @@ router.post("/", singleMulterUpload("image"), asyncHandler(async (req, res) => {
 router.get("/:userId", asyncHandler(async function (req, res) {
     const userId = +req.params.userId
     const photos = await Photo.findAll({
-        include: {
+        include: [{
             model: User
         },
+        {
+            model: Comment
+        }
+        ],
         where: { userId }
     });
 

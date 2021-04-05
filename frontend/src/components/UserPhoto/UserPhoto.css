@@ -95,14 +95,19 @@
     cursor: pointer;
 }
 
+.photo-user-name{
+    padding: 5px;
+}
+
 .delete-button{
     padding: 5px;
     background-color: white;
     border-style: none;
 }
 
-*.input-file{
+.input-file{
     display:flex;
     justify-content: center;
     align-items: center;
 }
+

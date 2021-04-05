@@ -38,16 +38,23 @@ function SinglePhoto() {
                     ))}
                 </div>
             </div> */}
-            <div className='single-photo-div'>
-                <div className='image-container'>
-                    <img src={`${photos[0].photoUrl}`} alt='text'></img>
-                </div>
-                <div className='single-photo-info'>{photos[0].name} by {photos[0].User.username}</div>
-                <div className='comment-container'>
-                    {photos[0].Comments && photos[0].Comments.map(comment => (
-                        <div className='comment-body'>{comment.text}</div>
-
-                    ))}
+            <div className='single-photo-page'>
+                <div className='single-photo-div'>
+                    <div className='image-container'>
+                        <img src={`${photos[0].photoUrl}`} alt='text' className='photo-img'></img>
+                    </div>
+                    <div className='single-photo-info'>{photos[0].name} by {photos[0].User.username}</div>
+                    <div className='comments-tite'>Comments</div>
+                    <div className='outter-comments-div'>
+                        <div className='comment-container'>
+                            {photos[0].Comments && photos[0].Comments.map(comment => (
+                                <div className='poster-info'>
+                                    <div className='comment-body'>{comment.text}</div>
+                                    <div className='poster'>posted by {photos[0].User.username}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
