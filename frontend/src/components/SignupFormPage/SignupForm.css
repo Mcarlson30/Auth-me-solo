@@ -9,16 +9,16 @@
     height: auto;
 }
 
-input{
+.signup-input{
     border-top-style: none;
     border-left-style: none;
     border-right-style: none;
     width: 100%;
     position: relative;
     font-size: 18px;
-    text-align: center;
     font-weight: 600;
     border-radius: 5px;
+    text-align: center;
     height: 45px;
     z-index: 10;
     margin-top: 10px;
@@ -26,17 +26,15 @@ input{
 
 }
 
-input:focus{
+.signup-input:focus{
     outline: none;
 }
 
-input::placeholder{
+.signup-input::placeholder{
   font-family: 'Proxima Nova', 'helvetica neue',Arial, Helvetica, sans-serif;
   color: black 0.70;
   font-size: 18px;
   text-align: center;
-  left: 0;
-  position: absolute;
   top: 8px;
   z-index: 5;
 }

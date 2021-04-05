@@ -1,14 +1,12 @@
 const express = require('express')
 const asyncHandler = require("express-async-handler");
 const { Photo, User, Comment } = require('../../db/models');
-// const { default: UserPhotos } = require('../../../frontend/src/components/UserPhoto');
+
 
 const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3")
-// const { Photo } = require("../../db/models")
 const router = express.Router();
 
 router.get("/", asyncHandler(async function (req, res, next) {
-    // const userId = +req.params.userId
     const photos = await Photo.findAll({
         include: {
             model: User
@@ -17,28 +15,52 @@ router.get("/", asyncHandler(async function (req, res, next) {
     res.json(photos)
 }))
 
+router.get("/photo/:photoId", asyncHandler(async function (req, res) {
+    const photoId = (req.params.photoId)
+    const photos = await Photo.findOne({
+        include: [{
+            model: User
+        },
+        {
+            model: Comment
+        }
+        ],
+        where: { id: photoId }
+    });
+    console.log('photoId-------------', photos)
+    res.json(photos)
+}))
+
 
 router.post("/", singleMulterUpload("image"), asyncHandler(async (req, res) => {
 
     const { userId, name } = req.body
-    console.log('req.file ------', req.file)
     const photoUrl = await singlePublicFileUpload(req.file)
-    console.log('photoUrl------', photoUrl)
-    const newPhoto = await Photo.create({ userId, photoUrl, name })
+    await Photo.create({ userId, photoUrl, name })
 
-    if (newPhoto) {
-        res.json(newPhoto)
-    } else {
-        res.json({ success: false, message: "Something went wrong..." })
-    }
+    const photos = await Photo.findAll({
+        include: [{
+            model: User
+        },
+        {
+            model: Comment
+        }
+        ],
+        where: { userId }
+    })
+    res.json({ photos })
 }))
 
 router.get("/:userId", asyncHandler(async function (req, res) {
     const userId = +req.params.userId
     const photos = await Photo.findAll({
-        include: {
+        include: [{
             model: User
         },
+        {
+            model: Comment
+        }
+        ],
         where: { userId }
     });
 
@@ -52,12 +74,30 @@ router.delete("/delete/:userId/:photoId", asyncHandler(async (req, res) => {
     await photo.destroy();
 
     const photos = await Photo.findAll({
-        where: {
-            userId
+        include: [{
+            model: User
+        },
+        {
+            model: Comment
         }
+        ],
+        where: { userId }
     })
     res.json({ photos })
 }));
+
+router.post('/comment', asyncHandler(async (req, res) => {
+    const { userId, photoId, text } = req.body;
+    console.log('body-------------', req.body)
+
+    const comment = await Comment.create({
+        userId,
+        photoId,
+        text
+    })
+
+    res.json(comment)
+}))
 
 
 

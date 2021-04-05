@@ -9,12 +9,13 @@
     height: auto;
 }
 
-input{
+.login-input{
     border-top-style: none;
     border-left-style: none;
     border-right-style: none;
     width: 100%;
     position: relative;
+    text-align: center;
     font-size: 18px;
     font-weight: 600;
     border-radius: 5px;
@@ -25,11 +26,11 @@ input{
 
 }
 
-input:focus{
+.login-input:focus{
     outline: none;
 }
 
-input::placeholder{
+.login-input::placeholder{
   font-family: 'Proxima Nova', 'helvetica neue',Arial, Helvetica, sans-serif;
   color: black 0.70;
   font-size: 18px;

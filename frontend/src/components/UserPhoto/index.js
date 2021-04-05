@@ -10,16 +10,17 @@ function UserPhotos() {
     const history = useHistory();
     const [image, setImage] = useState(null);
     const [name, setName] = useState('');
+    const [formVisibility, setFormVisibility] = useState('hidden')
+    const [addVisibility, setAddVisibility] = useState('visible')
     // const [photos, setPhotos] = useState([])
 
-    let url = window.location.pathname;
-    let id = url[1];
+    const url = window.location.pathname;
+    const id = url[1];
 
 
 
     const photos = useSelector(state => state.photo)
     const sessionUser = useSelector(state => state.session.user)
-    const photoArray = Object.values(photos)
 
     const deletePhoto = (e) => {
         dispatch(deleteUserPhoto(sessionUser.id, e.target.id))
@@ -28,7 +29,7 @@ function UserPhotos() {
 
     useEffect(() => {
         dispatch(getUserPhotos(id))
-    }, [id, dispatch, photoArray.length])
+    }, [id, dispatch])
 
     const handleSubmit = (e) => {
         const userId = id
@@ -45,6 +46,22 @@ function UserPhotos() {
 
     const signUp = () => {
         history.push('/signup')
+    }
+
+    const showForm = () => {
+        setFormVisibility('visible')
+        // setAddVisibility('hidden')
+    }
+
+    const showAddButton = () => {
+        setFormVisibility('hidden')
+        // setAddVisibility('visible')
+    }
+
+    function singlePhoto(photo) {
+        return function () {
+            history.push(`/photo/${photo.id}`)
+        };
     }
 
     if (!sessionUser) return (
@@ -65,29 +82,33 @@ function UserPhotos() {
                 <div className='select-photos'>
                     {currentUser &&
                         < div className='form-div'>
-                            <button>Add</button>
-                            <form onSubmit={handleSubmit}>
+                            <button onClick={showForm} style={{ visibility: addVisibility }} className='add-photo-button'>Add</button>
+                            <form onSubmit={handleSubmit} className='add-photo-form' style={{ visibility: formVisibility }}>
                                 <div className='add-photo-container'>
                                     <input
                                         type='text'
+                                        className='input-name'
                                         placeholder='Name'
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                     />
-                                    <input type="file" onChange={updateFile} />
-                                    <button type="submit">Add Photo</button>
+                                    <input type="file" onChange={updateFile} className='input-file' />
+                                    <button type="submit" onClick={showAddButton}
+                                        className='submit-photo'>Add Photo</button>
                                 </div>
                             </form>
                         </div>
                     }
                     {photos.map(photo => (
                         < div className='photo-div' >
-                            <div className='photo-image' style={{ backgroundImage: `url('${photo.photoUrl}')` }}></div>
+                            <div className='photo-image' style={{ backgroundImage: `url('${photo.photoUrl}')` }}
+                                onClick={singlePhoto(photo)}></div>
                             <div className='photo-info'>
-                                <div className='photo-user-name'>{photo.name} by {sessionUser.username}</div>
+                                <div className='photo-user-name'>{photo.name} by
+                                {photo.User.username}</div>
                                 {currentUser &&
                                     <div className='delete-button'>
-                                        <button className='delete' onClick={deletePhoto} id={photo.id}>Delete</button>
+                                        <button className='delete' onClick={deletePhoto} id={photo.id}>Remove</button>
                                     </div>
                                 }
                             </div>
