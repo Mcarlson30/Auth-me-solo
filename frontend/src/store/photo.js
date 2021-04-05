@@ -4,10 +4,16 @@ const UPLOAD_PHOTO = 'UPLOAD_PHOTO'
 const GET_PHOTOS = 'GET_PHOTOS'
 const DELETE_PHOTO = 'DELETE_PHOTO'
 const GET_SINGLE_PHOTO = 'GET_SINGLE_PHOTO'
+const ADD_COMMENT = 'ADD_COMMENT'
 
 const setPhoto = (photo) => ({
     type: UPLOAD_PHOTO,
     payload: photo
+});
+
+const setComment = (comment) => ({
+    type: ADD_COMMENT,
+    payload: comment
 });
 
 const deletePhoto = (photo) => ({
@@ -41,18 +47,25 @@ export const createPhoto = (userId, image, name) => async (dispatch) => {
     dispatch(setPhoto(data))
 };
 
+export const createComment = (userId, photoId, text) => async (dispatch) => {
+    const res = await csrfFetch("/api/photo/comment", {
+        method: "POST",
+        body: JSON.stringify({ userId, photoId, text })
+    })
+    const data = await res.json();
+    console.log('data-----', data)
+    dispatch(setComment(data))
+};
+
 export const deleteUserPhoto = (userId, photoId) => async (dispatch) => {
-    console.log("deletePhoto thunk", 'userId', userId, 'photo Id', photoId)
     const res = await csrfFetch(`/api/photo/delete/${userId}/${photoId}`, {
         method: "DELETE",
     })
     const data = await res.json();
-    console.log("deleted item", data.photos)
     dispatch(deletePhoto(data.photos))
 }
 
 export const getSinglePhoto = (photoId) => async (dispatch) => {
-    console.log('single photo thunk')
     const res = await csrfFetch(`/api/photo/photo/${photoId}`)
     const data = await res.json();
     console.log('data', data)
@@ -60,7 +73,6 @@ export const getSinglePhoto = (photoId) => async (dispatch) => {
 }
 
 export const getUserPhotos = (userId) => async (dispatch) => {
-    console.log('inside user photos thunk')
     const res = await csrfFetch(`/api/photo/${userId}`)
     const data = await res.json();
     dispatch(getPhotos(data))
@@ -68,7 +80,6 @@ export const getUserPhotos = (userId) => async (dispatch) => {
 
 
 export const getAllPhotos = () => async (dispatch) => {
-    console.log('all photos thunk')
     const res = await csrfFetch(`/api/photo`)
     const data = await res.json();
     dispatch(getPhotos(data))
@@ -83,11 +94,14 @@ export default function photoReducer(state = [], action) {
             return [...action.payload]
         }
         case DELETE_PHOTO: {
-            newState = [...action.payload];
+            newState = [...state, action.payload];
             return newState;
         }
         case GET_SINGLE_PHOTO: {
             return [action.payload]
+        }
+        case ADD_COMMENT: {
+            return [...state, action.payload]
         }
         default:
             return state

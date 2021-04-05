@@ -21,7 +21,6 @@ function UserPhotos() {
 
     const photos = useSelector(state => state.photo)
     const sessionUser = useSelector(state => state.session.user)
-    // const photoArray = Object.values(photos)
 
     const deletePhoto = (e) => {
         dispatch(deleteUserPhoto(sessionUser.id, e.target.id))

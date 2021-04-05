@@ -75,6 +75,19 @@ router.delete("/delete/:userId/:photoId", asyncHandler(async (req, res) => {
     res.json({ photos })
 }));
 
+router.post('/comment', asyncHandler(async (req, res) => {
+    const { userId, photoId, text } = req.body;
+    console.log('body-------------', req.body)
+
+    const comment = await Comment.create({
+        userId,
+        photoId,
+        text
+    })
+
+    res.json(comment)
+}))
+
 
 
 
