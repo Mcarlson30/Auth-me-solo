@@ -44,6 +44,12 @@
     justify-content: center;
 }
 
+.demo-login{
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;
+}
+
 .errors{
     color: red;
     text-decoration: none;
