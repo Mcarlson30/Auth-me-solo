@@ -76,6 +76,7 @@ export const getSinglePhoto = (photoId) => async (dispatch) => {
 export const getUserPhotos = (userId) => async (dispatch) => {
     const res = await csrfFetch(`/api/photo/${userId}`)
     const data = await res.json();
+    console.log(data)
     dispatch(getPhotos(data))
 }
 
@@ -95,7 +96,7 @@ export default function photoReducer(state = [], action) {
             return [...action.payload]
         }
         case DELETE_PHOTO: {
-            newState = [...state, action.payload];
+            newState = [...action.payload];
             return newState;
         }
         case GET_SINGLE_PHOTO: {

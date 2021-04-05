@@ -16,7 +16,7 @@ function SinglePhoto() {
     let url = window.location.pathname;
     let id = url.substring(url.lastIndexOf('/') + 1);
 
-    const commentsArray = Object.values(photos[0].Comments)
+
 
 
     useEffect(() => {
