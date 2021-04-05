@@ -109,10 +109,19 @@ text-align: right;
     padding-left: 20%;
     width: 30%;
     margin-top: 15px;
+    padding-bottom: 20px;
 }
 
 .comment-text{
-    justify-content: start;
     min-height: 15vh;
+    display: table-cell;
+    vertical-align: text-top;
+    text-align: start;
+    font-size: 16px;
+}
+
+.submit-comment{
+    width: 125px;
+    
 }
 

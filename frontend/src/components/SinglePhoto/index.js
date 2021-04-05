@@ -54,7 +54,7 @@ function SinglePhoto() {
                             {photos[0].Comments && photos[0].Comments.map(comment => (
                                 <div className='poster-info'>
                                     <div className='comment-body'>{comment.text}</div>
-                                    <div className='poster'>posted by {photos[0].User.username}</div>
+                                    <div className='poster'>posted by {sessionUser.username}</div>
                                 </div>
                             ))}
                         </div>
