@@ -10,6 +10,8 @@ function UserPhotos() {
     const history = useHistory();
     const [image, setImage] = useState(null);
     const [name, setName] = useState('');
+    const [formVisibility, setFormVisibility] = useState('hidden')
+    const [addVisibility, setAddVisibility] = useState('visible')
     // const [photos, setPhotos] = useState([])
 
     const url = window.location.pathname;
@@ -47,6 +49,16 @@ function UserPhotos() {
         history.push('/signup')
     }
 
+    const showForm = () => {
+        setFormVisibility('visible')
+        // setAddVisibility('hidden')
+    }
+
+    const showAddButton = () => {
+        setFormVisibility('hidden')
+        // setAddVisibility('visible')
+    }
+
     if (!sessionUser) return (
         <div className='home-page-text'>
             <div className='title'>Find your inspiration</div>
@@ -65,17 +77,19 @@ function UserPhotos() {
                 <div className='select-photos'>
                     {currentUser &&
                         < div className='form-div'>
-                            <button>Add</button>
-                            <form onSubmit={handleSubmit}>
+                            <button onClick={showForm} style={{ visibility: addVisibility }} className='add-photo-button'>Add</button>
+                            <form onSubmit={handleSubmit} className='add-photo-form' style={{ visibility: formVisibility }}>
                                 <div className='add-photo-container'>
                                     <input
                                         type='text'
+                                        className='input-name'
                                         placeholder='Name'
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                     />
-                                    <input type="file" onChange={updateFile} />
-                                    <button type="submit">Add Photo</button>
+                                    <input type="file" onChange={updateFile} className='input-file' />
+                                    <button type="submit" onClick={showAddButton}
+                                        className='submit-photo'>Add Photo</button>
                                 </div>
                             </form>
                         </div>
@@ -87,7 +101,7 @@ function UserPhotos() {
                                 <div className='photo-user-name'>{photo.name} by {photo.User.username}</div>
                                 {currentUser &&
                                     <div className='delete-button'>
-                                        <button className='delete' onClick={deletePhoto} id={photo.id}>Delete</button>
+                                        <button className='delete' onClick={deletePhoto} id={photo.id}>Remove</button>
                                     </div>
                                 }
                             </div>

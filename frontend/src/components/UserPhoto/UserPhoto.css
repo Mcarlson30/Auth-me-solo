@@ -97,5 +97,12 @@
 
 .delete-button{
     padding: 5px;
-    background-color: lightgray;
+    background-color: white;
+    border-style: none;
+}
+
+*.input-file{
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }

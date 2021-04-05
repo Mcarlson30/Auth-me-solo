@@ -1,0 +1,35 @@
+.form-div{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 6%;
+    margin-left: 7%;
+    padding: 10px;
+    align-items: center;
+}
+
+.add-photo-button{
+    height: 75%;
+}
+
+.add-photo-form{
+    align-items: center;
+}
+
+.add-photo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-name{
+    display: flex;
+    align-items: center;
+    width: auto;
+    text-align: left;
+    border: none;
+}
+
+input.input-name{
+    align-items: center;
+}
+
