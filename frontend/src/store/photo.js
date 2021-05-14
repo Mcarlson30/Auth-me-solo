@@ -38,7 +38,7 @@ export const createPhoto = (userId, image, name) => async (dispatch) => {
     formData.append("image", image)
     formData.append("name", name)
 
-    const res = await csrfFetch("/api/photo", {
+    const res = await csrfFetch("/api/photo/", {
         method: "POST",
         headers: { "Content-Type": "multipart/form-data" },
         body: formData
@@ -82,7 +82,7 @@ export const getUserPhotos = (userId) => async (dispatch) => {
 
 
 export const getAllPhotos = () => async (dispatch) => {
-    const res = await csrfFetch(`/api/photo`)
+    const res = await csrfFetch(`/api/photo/`)
     const data = await res.json();
     dispatch(getPhotos(data))
 }
